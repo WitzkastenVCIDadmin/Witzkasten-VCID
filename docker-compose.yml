@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    flask-app:
+        container_name: flask-app
+        build: app
+        restart: always
+        ports:
+            - '80:5000'
+        volumes:
+            - ./app:/app
+        networks:
+            - backend
+
+    mysql-db:
+        container_name: mysql-db
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_USER: vcid
+            MYSQL_PASSWORD: IchBinDeinSicheresPasswort69
+            MYSQL_ROOT_USER: root
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: VCID_app
+        ports:
+            - '3308:3306'
+        command: --init-file /init.sql
+        volumes:
+            - ./init.sql:/init.sql
+            - ./database:/var/lib/mysql
+        networks:
+            - backend
+
+networks:
+    backend:
+
+volumes:
+    app:
+    database:

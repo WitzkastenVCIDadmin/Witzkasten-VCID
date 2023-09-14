@@ -1,0 +1,44 @@
+{% extends 'base2.html' %}
+
+{% block body %}
+<div class="container">
+    <h1>Herzlich Willkommen!</h1>
+
+    {% if current_user.is_authenticated %}
+        <h2>Hallo {{ current_user.username }}!</h2> 
+        
+        <!-- User information -->
+        <p>Mailadresse: {{ current_user.email }}</p>
+        <p>Benutzer ID: {{ current_user.id }}</p>
+
+        <hr>
+
+        <h3>Witz veröffentlichen:</h3>
+        <form method="POST" action="{{ url_for('add_blog') }}">
+            <div class="form-group">
+                <label for="title">Titel:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="inhalt">Dein Witz:</label>
+                <textarea class="form-control" id="inhalt" name="inhalt" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Witz absenden</button>
+        </form>
+    {% else %}
+        <h3>Bitte <a href="/login">Anmelden</a> um Beiträge zu verfassen</h3> <br>
+        <h4>Noch kein Konto? <a href="/register"> Registriere</a> dich jetzt!</h4>
+    {% endif %}
+
+    <hr>
+
+    <h3>Here we go :</h3>
+    {% for post in posts %}
+    <h4>{{ post[0] }}</h4> <!-- This displays the title of the post -->
+    <p>{{ post[2] }}</p> <!-- Displaying the post content -->
+    <p>- von  <strong>{{ post[1] }}</strong></p>  <!-- Displaying the author's username -->
+    <p><em>Veröffentlicht am: {{ post[3].strftime('%d-%m-%Y %H:%M:%S') }}</em></p> <!-- Displaying the timestamp -->
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

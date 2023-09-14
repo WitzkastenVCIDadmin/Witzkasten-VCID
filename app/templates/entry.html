@@ -1,0 +1,38 @@
+{% extends 'base2.html' %}
+
+{% block body %}
+<div class="container">
+    <h1>VCID Witzkasten</h1>
+    <h2>Erzähl mal einen Witz!</h2>
+
+    <!-- Vorlage um eneue Posts zu erstellen -->
+    <h3>Neuen Witz veröffentlichen:</h3>
+    <form method="POST" action="{{ url_for('add_blog') }}">
+        <!-- Vorlage für Titel und Inhalt -->
+        <div class="form-group">
+            <label for="title">Titel:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="inhalt">Dein Witz:</label>
+            <textarea class="form-control" id="inhalt" name="inhalt" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Witz absenden</button>
+    </form>
+
+    <hr>
+
+    <h3>Existierende Witze:</h3>
+
+    {% for post in posts %}
+    <div class="post">
+        <h4>{{ post[0] }}</h4> <!-- Displays the title of the post -->
+        <p>{{ post[2] }}</p> <!-- Displaying the post content -->
+        <p>- von <strong>{{ post[1] }}</strong></p>  <!-- Displaying the author's username -->
+        <p><em>Veröffentlicht am: {{ post[3].strftime('%d-%m-%Y %H:%M:%S') }}</em></p> <!-- Displaying the timestamp -->
+    </div>
+    <hr>
+    {% endfor %}
+    
+</div>
+{% endblock %}

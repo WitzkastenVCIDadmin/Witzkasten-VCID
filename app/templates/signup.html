@@ -1,0 +1,24 @@
+{% extends 'base2.html' %}
+
+{% block body %}
+
+<!-- Erstellen eines neues Benutzerkontos -->
+
+<h1>Als neuer Benutzer registrieren</h1>
+<form method="POST" action="/register">
+    <label for="username">Benutzername:</label>
+    <input type="text" name="username" required><br><br>
+
+    <label for="email">Mailadresse:</label>
+    <input type="email" name="email" required><br><br>
+
+    <label for="password">Passwort:</label>
+    <input type="password" name="password" required><br><br>
+
+    <label for="name">Vollständiger Name:</label>
+    <input type="text" name="name" required><br><br>
+
+    <input type="submit" value="Registrieren">
+</form>
+
+{% endblock %}
